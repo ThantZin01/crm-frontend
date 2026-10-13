@@ -72,6 +72,7 @@ export const MOCK_ACCOUNTS: Account[] = Array.from({ length: 134 }, (_, idx) => 
     tier,
     deal_side: dealSide,
     owner_id: owner.id,
+    owner_name: owner.name,
     category,
     updated_at: updatedDate.toISOString(),
   };

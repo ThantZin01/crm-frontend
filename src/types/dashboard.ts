@@ -10,6 +10,7 @@ export interface Account {
   tier: AccountTier;
   deal_side: DealSide;
   owner_id: string;
+  owner_name?: string;
   category: string;
   updated_at?: string;
 }

@@ -151,14 +151,18 @@ export const handlers = [
     const accounts = filterAccounts(url);
     const contacts = filterContacts(accounts, url);
 
-    // Sort: TIER_1 first, HOT first, not closed
+    // Tier 1, relationship HOT or WARM, not closed
     const sorted = [...contacts]
-      .filter((c) => !c.is_closed)
+      .filter(
+        (c) =>
+          !c.is_closed &&
+          c.tier === 'TIER_1' &&
+          (c.relationship_status === 'HOT' || c.relationship_status === 'WARM')
+      )
       .sort((a, b) => {
-        if (a.tier !== b.tier) return a.tier.localeCompare(b.tier);
         if (a.relationship_status === 'HOT' && b.relationship_status !== 'HOT') return -1;
         if (b.relationship_status === 'HOT' && a.relationship_status !== 'HOT') return 1;
-        return 0;
+        return a.name.localeCompare(b.name);
       })
       .slice(0, 8);
 

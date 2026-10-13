@@ -6,6 +6,8 @@ import { FollowUpsPanel } from '../features/dashboard/components/FollowUpsPanel'
 import { RelationshipChart } from '../features/dashboard/components/RelationshipChart';
 import { AccountsByTierChart } from '../features/dashboard/components/AccountsByTierChart';
 import { DealSideChart } from '../features/dashboard/components/DealSideChart';
+import { PriorityContactsTable } from '../features/dashboard/components/PriorityContactsTable';
+import { RecentAccountsTable } from '../features/dashboard/components/RecentAccountsTable';
 import { useDashboardFilters } from '../features/dashboard/hooks/useDashboardFilters';
 import { Activity } from 'lucide-react';
 
@@ -51,6 +53,12 @@ export const DashboardPage: React.FC = () => {
         <RelationshipChart />
         <AccountsByTierChart />
         <DealSideChart />
+      </div>
+
+      {/* 5. Tables: Top Priority Contacts & Recently Updated Accounts */}
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+        <PriorityContactsTable />
+        <RecentAccountsTable />
       </div>
     </div>
   );

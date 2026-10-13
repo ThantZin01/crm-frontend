@@ -188,6 +188,7 @@ All dashboard endpoints accept optional filtering query parameters:
     "tier": "TIER_1",
     "deal_side": "BUY_SIDE",
     "owner_id": "usr-1",
+    "owner_name": "Sarah Jenkins",
     "category": "Private Equity",
     "updated_at": "2026-10-12T14:30:00Z"
   }
