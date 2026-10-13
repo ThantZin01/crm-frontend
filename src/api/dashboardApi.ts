@@ -1,6 +1,7 @@
 import { apiClient } from './client';
 import type {
   Account,
+  CategoryDistributionMetric,
   Contact,
   DashboardChartsData,
   DashboardFilterOptions,
@@ -8,6 +9,8 @@ import type {
   DashboardKpis,
   FollowUpDTO,
   FunnelStage,
+  OwnerWorkloadMetric,
+  StaleContactDTO,
 } from '../types/dashboard';
 
 const cleanParams = (filters?: DashboardFilters): Record<string, string> => {
@@ -75,5 +78,30 @@ export const getRecentAccounts = async (filters?: DashboardFilters): Promise<Acc
 
 export const getFilterOptions = async (): Promise<DashboardFilterOptions> => {
   const response = await apiClient.get<DashboardFilterOptions>('/dashboard/filter-options');
+  return response.data;
+};
+
+export const getStaleContacts = async (filters?: DashboardFilters): Promise<StaleContactDTO[]> => {
+  const response = await apiClient.get<StaleContactDTO[]>('/dashboard/stale-contacts', {
+    params: cleanParams(filters),
+  });
+  return response.data;
+};
+
+export const getAccountsByCategory = async (
+  filters?: DashboardFilters
+): Promise<CategoryDistributionMetric[]> => {
+  const response = await apiClient.get<CategoryDistributionMetric[]>('/dashboard/accounts-by-category', {
+    params: cleanParams(filters),
+  });
+  return response.data;
+};
+
+export const getAccountsPerOwner = async (
+  filters?: DashboardFilters
+): Promise<OwnerWorkloadMetric[]> => {
+  const response = await apiClient.get<OwnerWorkloadMetric[]>('/dashboard/accounts-per-owner', {
+    params: cleanParams(filters),
+  });
   return response.data;
 };

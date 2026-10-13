@@ -105,3 +105,25 @@ export interface DashboardFilterOptions {
   dealSides: string[];
   countries: string[];
 }
+
+export interface StaleContactDTO {
+  id: string;
+  name: string;
+  company_id: string;
+  company_name: string;
+  last_contacted_date: string | null;
+  days_since_contact: number;
+  reason: 'NO_FOLLOW_UP' | 'OVER_30_DAYS';
+}
+
+export interface CategoryDistributionMetric {
+  category: string;
+  count: number;
+}
+
+export interface OwnerWorkloadMetric {
+  owner_id: string;
+  owner_name: string;
+  account_count: number;
+  overdue_count: number;
+}

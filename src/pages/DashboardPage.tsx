@@ -8,6 +8,9 @@ import { AccountsByTierChart } from '../features/dashboard/components/AccountsBy
 import { DealSideChart } from '../features/dashboard/components/DealSideChart';
 import { PriorityContactsTable } from '../features/dashboard/components/PriorityContactsTable';
 import { RecentAccountsTable } from '../features/dashboard/components/RecentAccountsTable';
+import { StaleContactsWidget } from '../features/dashboard/components/StaleContactsWidget';
+import { AccountsByCategoryChart } from '../features/dashboard/components/AccountsByCategoryChart';
+import { AccountsPerOwnerWidget } from '../features/dashboard/components/AccountsPerOwnerWidget';
 import { useDashboardFilters } from '../features/dashboard/hooks/useDashboardFilters';
 import { Activity } from 'lucide-react';
 
@@ -59,6 +62,17 @@ export const DashboardPage: React.FC = () => {
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
         <PriorityContactsTable />
         <RecentAccountsTable />
+      </div>
+
+      {/* 6. Extra Widgets: Practice Line Breakdown & Owner Portfolio / Overdue Workload */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <AccountsByCategoryChart />
+        <AccountsPerOwnerWidget />
+      </div>
+
+      {/* 7. Action Alert: Inactive & Stale Contacts */}
+      <div>
+        <StaleContactsWidget />
       </div>
     </div>
   );

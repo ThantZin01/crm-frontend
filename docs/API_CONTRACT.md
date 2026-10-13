@@ -237,6 +237,67 @@ All dashboard endpoints accept optional filtering query parameters:
 
 ---
 
+### 2.8 Stale Contacts
+- **Method**: `GET`
+- **Path**: `/api/dashboard/stale-contacts`
+- **Query Parameters**: Common filters
+- **Response JSON (200 OK)**:
+```json
+[
+  {
+    "id": "cnt-4",
+    "name": "Victoria Montague",
+    "company_id": "acc-4",
+    "company_name": "Horizon Advisors",
+    "last_contacted_date": "2026-09-08",
+    "days_since_contact": 35,
+    "reason": "NO_FOLLOW_UP"
+  }
+]
+```
+
+---
+
+### 2.9 Accounts by Category
+- **Method**: `GET`
+- **Path**: `/api/dashboard/accounts-by-category`
+- **Query Parameters**: Common filters
+- **Response JSON (200 OK)**:
+```json
+[
+  { "category": "Private Equity", "count": 34 },
+  { "category": "M&A Advisory", "count": 33 },
+  { "category": "Corporate Strategy", "count": 34 },
+  { "category": "Capital Markets", "count": 33 }
+]
+```
+
+---
+
+### 2.10 Accounts per Owner
+- **Method**: `GET`
+- **Path**: `/api/dashboard/accounts-per-owner`
+- **Query Parameters**: Common filters
+- **Response JSON (200 OK)**:
+```json
+[
+  {
+    "owner_id": "usr-1",
+    "owner_name": "Sarah Jenkins",
+    "account_count": 27,
+    "overdue_count": 3
+  },
+  {
+    "owner_id": "usr-2",
+    "owner_name": "Michael Chang",
+    "account_count": 27,
+    "overdue_count": 2
+  }
+]
+```
+
+---
+
 ## 3. Standard Error Structure
 
 When any request fails (e.g. 400 Bad Request, 500 Internal Error):
