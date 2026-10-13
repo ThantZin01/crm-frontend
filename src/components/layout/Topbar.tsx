@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Layers, ShieldCheck, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useFilterOptions } from '../../features/dashboard/hooks/useFilterOptions';
 
 interface TopbarProps {
   onToggleSidebar: () => void;
@@ -8,20 +9,21 @@ interface TopbarProps {
   onBusinessLineChange: (line: string) => void;
 }
 
-const businessLines = [
-  'All lines',
-  'Private Equity',
-  'M&A Advisory',
-  'Corporate Strategy',
-  'Capital Markets',
-];
-
 export const Topbar: React.FC<TopbarProps> = ({
   onToggleSidebar,
   businessLine,
   onBusinessLineChange,
 }) => {
   const { user } = useAuth();
+  const { data: filterOptions } = useFilterOptions();
+
+  const businessLines = filterOptions?.businessLines || [
+    'All lines',
+    'Private Equity',
+    'M&A Advisory',
+    'Corporate Strategy',
+    'Capital Markets',
+  ];
 
   return (
     <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-[var(--background)] bg-[var(--surface)] px-4 sm:px-6 shadow-xs">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { DashboardFilters } from '../features/dashboard/components/DashboardFilters';
 import { KpiGrid } from '../features/dashboard/components/KpiGrid';
 import { OutreachFunnel } from '../features/dashboard/components/OutreachFunnel';
 import { FollowUpsPanel } from '../features/dashboard/components/FollowUpsPanel';
@@ -32,6 +33,9 @@ export const DashboardPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Global Filter Bar */}
+      <DashboardFilters />
 
       {/* 1. KPI Cards Grid */}
       <KpiGrid />

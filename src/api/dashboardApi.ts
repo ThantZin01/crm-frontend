@@ -13,7 +13,7 @@ import type {
 const cleanParams = (filters?: DashboardFilters): Record<string, string> => {
   if (!filters) return {};
   const params: Record<string, string> = {};
-  if (filters.businessLine && filters.businessLine !== 'ALL') {
+  if (filters.businessLine && filters.businessLine !== 'ALL' && filters.businessLine !== 'All lines') {
     params.businessLine = filters.businessLine;
   }
   if (filters.ownerId && filters.ownerId !== 'ALL') {
