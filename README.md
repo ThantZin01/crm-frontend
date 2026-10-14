@@ -1,6 +1,6 @@
-# CRM Frontend — Executive Dashboard
+# SAGASIA Strategic — Executive Dashboard
 
-A modern, high-performance Executive Dashboard for an internal CRM web application designed for advisory and investment consulting teams. Built with React, TypeScript, and Tailwind CSS, featuring full offline mock simulation (MSW) and isolated widget resilience.
+A modern, high-performance Executive Dashboard for SAGASIA Strategic advisory and investment consulting teams. Built with React, TypeScript, and Tailwind CSS, featuring full offline mock simulation (MSW) and isolated widget resilience.
 
 ---
 
@@ -109,7 +109,7 @@ All dashboard widgets query dedicated REST endpoints that support optional query
 ## 6. Next Steps
 
 1. **Brand Theme Refinement**: Replace default color palette values in `src/styles/theme.css` (`--primary`, `--accent`, etc.) with official corporate brand guidelines.
-2. **Business Practice Lines**: Update business lines in `src/mocks/data.ts` and backend metadata to reflect production practice groups.
+2. **Business Practice Lines**: Reflect production practice groups (Healthcare, Financial Advisory, Networking & Partnerships) in `src/mocks/data.ts` and backend metadata.
 3. **Connect Live Backend**: Deploy the Spring Boot REST API and switch `VITE_USE_MOCK=false`.
 4. **Authentication & SSO**: Replace the placeholder `AuthProvider` in `src/context/AuthContext.tsx` with Microsoft Entra ID (MSAL) authentication.
 5. **Automated Testing**: Add unit/integration tests using Vitest and React Testing Library, and end-to-end tests using Playwright.

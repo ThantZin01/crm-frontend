@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       user: {
         id: 'usr-exec-1',
         name: 'Managing Partner',
-        email: 'executive@firm.com',
+        email: 'executive@sagasia-strategic.com',
         role: 'Executive',
       },
       isAuthenticated: true,

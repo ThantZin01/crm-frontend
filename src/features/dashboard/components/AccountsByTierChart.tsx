@@ -13,9 +13,9 @@ import { WidgetContainer } from '../../../components/common/WidgetContainer';
 import { useDashboardCharts } from '../hooks/useDashboardCharts';
 
 const TIER_COLORS: Record<string, string> = {
-  'Tier 1': 'var(--primary)',
-  'Tier 2': 'var(--accent)',
-  'Tier 3': 'var(--primary-dark)',
+  'Tier 1': 'var(--chart-tier-1)',
+  'Tier 2': 'var(--chart-tier-2)',
+  'Tier 3': 'var(--chart-tier-3)',
 };
 
 interface TooltipPayloadItem {
@@ -36,10 +36,10 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
   if (active && payload && payload.length > 0) {
     const item = payload[0];
     return (
-      <div className="rounded-lg border border-[var(--background)] bg-[var(--surface)] p-2.5 text-xs shadow-md">
+      <div className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2.5 text-xs shadow-md">
         <p className="font-semibold text-[var(--text)]">{item.payload.tier} Accounts</p>
-        <p className="mt-1 text-[var(--text)] opacity-80">
-          Count: <span className="font-bold">{item.value.toLocaleString()}</span>
+        <p className="mt-1 text-[var(--text-secondary)]">
+          Count: <span className="font-bold text-[var(--text)]">{item.value.toLocaleString()}</span>
         </p>
       </div>
     );
@@ -59,8 +59,8 @@ export const AccountsByTierChart: React.FC = () => {
       title="Accounts by Tier"
       subtitle="Priority tier distribution across target universe"
       headerAction={
-        <div className="flex items-center gap-1.5 text-xs text-[var(--text)] opacity-60">
-          <BarChart3 className="h-3.5 w-3.5 text-[var(--primary)]" />
+        <div className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)]">
+          <BarChart3 className="h-3.5 w-3.5 text-[var(--link)]" />
           <span>{total} Accounts</span>
         </div>
       }
@@ -81,12 +81,12 @@ export const AccountsByTierChart: React.FC = () => {
             >
               <XAxis
                 dataKey="tier"
-                tick={{ fill: 'var(--text)', fontSize: 11 }}
-                stroke="var(--background)"
+                tick={{ fill: 'var(--text-secondary)', fontSize: 11 }}
+                stroke="var(--border)"
               />
               <YAxis
-                tick={{ fill: 'var(--text)', fontSize: 11 }}
-                stroke="var(--background)"
+                tick={{ fill: 'var(--text-secondary)', fontSize: 11 }}
+                stroke="var(--border)"
                 allowDecimals={false}
               />
               <Tooltip content={<CustomTooltip />} />
@@ -94,7 +94,7 @@ export const AccountsByTierChart: React.FC = () => {
                 {chartData.map((entry) => (
                   <Cell
                     key={entry.tier}
-                    fill={TIER_COLORS[entry.tier] || 'var(--primary)'}
+                    fill={TIER_COLORS[entry.tier] || 'var(--chart-tier-1)'}
                   />
                 ))}
               </Bar>
@@ -103,7 +103,7 @@ export const AccountsByTierChart: React.FC = () => {
         </div>
 
         {/* Legend / Metrics */}
-        <div className="flex w-full items-center justify-around border-t border-[var(--background)] pt-3 pb-1 text-xs">
+        <div className="flex w-full items-center justify-around border-t border-[var(--border)] pt-3 pb-1 text-xs">
           {chartData.map((entry) => {
             const pct = total > 0 ? Math.round((entry.count / total) * 100) : 0;
             return (
@@ -111,11 +111,11 @@ export const AccountsByTierChart: React.FC = () => {
                 <div className="flex items-center gap-1.5 font-medium text-[var(--text)]">
                   <span
                     className="h-2.5 w-2.5 rounded-full"
-                    style={{ backgroundColor: TIER_COLORS[entry.tier] || 'var(--primary)' }}
+                    style={{ backgroundColor: TIER_COLORS[entry.tier] || 'var(--chart-tier-1)' }}
                   />
                   <span>{entry.tier}</span>
                 </div>
-                <div className="mt-0.5 text-[11px] text-[var(--text)] opacity-70">
+                <div className="mt-0.5 text-[11px] text-[var(--text-secondary)]">
                   <span className="font-semibold text-[var(--text)]">{entry.count}</span> ({pct}%)
                 </div>
               </div>

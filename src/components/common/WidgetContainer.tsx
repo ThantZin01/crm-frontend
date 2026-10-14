@@ -36,14 +36,14 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
 
   return (
     <section
-      className={`flex flex-col rounded-xl bg-[var(--surface)] p-5 text-[var(--text)] shadow-sm transition-all ${className}`}
+      className={`flex flex-col rounded-xl border border-[var(--border)] bg-[var(--surface)] p-5 text-[var(--text)] shadow-xs transition-all ${className}`}
     >
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between border-b border-[var(--background)] pb-3">
+      <div className="mb-4 flex items-center justify-between border-b border-[var(--border)] pb-3">
         <div>
           <h2 className="text-base font-semibold tracking-tight text-[var(--text)]">{title}</h2>
           {subtitle && (
-            <p className="mt-0.5 text-xs text-[var(--text)] opacity-70">{subtitle}</p>
+            <p className="mt-0.5 text-xs text-[var(--text-secondary)]">{subtitle}</p>
           )}
         </div>
         {headerAction && <div>{headerAction}</div>}
@@ -60,15 +60,15 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
             </div>
           )
         ) : isError ? (
-          <div className="flex flex-col items-center justify-center rounded-lg border border-[var(--warning)] bg-[var(--warning-bg)] p-6 text-center">
-            <AlertCircle className="h-8 w-8 text-[var(--warning)]" />
-            <p className="mt-2 text-sm font-medium text-[var(--warning)]">{title} failed to load</p>
-            <p className="mt-1 text-xs text-[var(--warning)] opacity-90">{errorMessage}</p>
+          <div className="flex flex-col items-center justify-center rounded-lg border border-[var(--status-overdue-text)]/30 bg-[var(--status-overdue-bg)] p-6 text-center">
+            <AlertCircle className="h-8 w-8 text-[var(--status-overdue-text)]" />
+            <p className="mt-2 text-sm font-medium text-[var(--status-overdue-text)]">{title} failed to load</p>
+            <p className="mt-1 text-xs text-[var(--status-overdue-text)] opacity-90">{errorMessage}</p>
             {onRetry && (
               <button
                 type="button"
                 onClick={onRetry}
-                className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--warning)] shadow-sm transition hover:opacity-90 cursor-pointer"
+                className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-[var(--btn-primary)] px-3 py-1.5 text-xs font-semibold text-[var(--btn-primary-text)] shadow-xs transition hover:bg-[var(--btn-primary-hover)] cursor-pointer"
               >
                 <RotateCcw className="h-3.5 w-3.5" />
                 Retry
@@ -76,7 +76,7 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
             )}
           </div>
         ) : isEmpty ? (
-          <div className="flex flex-col items-center justify-center py-10 text-center text-[var(--text)] opacity-60">
+          <div className="flex flex-col items-center justify-center py-10 text-center text-[var(--text-secondary)]">
             <Inbox className="h-10 w-10 stroke-1" />
             <p className="mt-2 text-sm">{emptyMessage}</p>
           </div>

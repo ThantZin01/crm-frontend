@@ -17,9 +17,9 @@ export const AccountsPerOwnerWidget: React.FC = () => {
       subtitle="Team account distribution and overdue follow-up volume"
       headerAction={
         <div className="flex items-center gap-2 text-xs">
-          <span className="text-[var(--text)] opacity-70">{totalAccounts} Accounts</span>
+          <span className="text-[var(--text-secondary)]">{totalAccounts} Accounts</span>
           {totalOverdue > 0 && (
-            <span className="inline-flex items-center gap-1 rounded-full border border-[var(--warning)] bg-[var(--warning-bg)] px-2 py-0.5 text-[10px] font-bold text-[var(--warning)]">
+            <span className="inline-flex items-center gap-1 rounded-full border border-[var(--status-overdue-text)]/30 bg-[var(--status-overdue-bg)] px-2 py-0.5 text-[10px] font-bold text-[var(--status-overdue-text)]">
               <AlertTriangle className="h-2.5 w-2.5" />
               {totalOverdue} Overdue
             </span>
@@ -42,7 +42,7 @@ export const AccountsPerOwnerWidget: React.FC = () => {
             <div key={owner.owner_id} className="space-y-1.5">
               <div className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2 min-w-0">
-                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--background)] text-[var(--primary)] text-[10px] font-bold">
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--table-header-bg)] text-[var(--link)] text-[10px] font-bold">
                     {owner.owner_name.split(' ').map((n) => n[0]).join('')}
                   </div>
                   <span className="font-semibold text-[var(--text)] truncate">
@@ -52,14 +52,14 @@ export const AccountsPerOwnerWidget: React.FC = () => {
 
                 <div className="flex items-center gap-2 shrink-0">
                   <span className="font-bold text-[var(--text)]">
-                    {owner.account_count} <span className="font-normal opacity-60">accs</span>
+                    {owner.account_count} <span className="font-normal text-[var(--text-secondary)]">accs</span>
                   </span>
                   {owner.overdue_count > 0 ? (
-                    <span className="inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-bold bg-[var(--warning-bg)] text-[var(--warning)] border border-[var(--warning)]">
+                    <span className="inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-bold bg-[var(--status-overdue-bg)] text-[var(--status-overdue-text)] border border-[var(--status-overdue-text)]/30">
                       {owner.overdue_count} overdue
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-medium bg-[var(--background)] text-[var(--accent)]">
+                    <span className="inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-medium bg-[var(--status-success-bg)] text-[var(--status-success-text)]">
                       <ShieldCheck className="h-2.5 w-2.5" />
                       clear
                     </span>
@@ -68,9 +68,9 @@ export const AccountsPerOwnerWidget: React.FC = () => {
               </div>
 
               {/* Progress bar */}
-              <div className="h-2 w-full overflow-hidden rounded-full bg-[var(--background)]">
+              <div className="h-2 w-full overflow-hidden rounded-full bg-[var(--table-header-bg)]">
                 <div
-                  className="h-full rounded-full bg-[var(--primary)] transition-all duration-300"
+                  className="h-full rounded-full bg-[var(--link)] transition-all duration-300"
                   style={{ width: `${Math.max(pct, 5)}%` }}
                 />
               </div>

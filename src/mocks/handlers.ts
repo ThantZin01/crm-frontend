@@ -147,24 +147,76 @@ export const handlers = [
     return HttpResponse.json(data);
   }),
 
-  // 5. Priority Contacts
+  // 5. Priority Contacts (ranks by follow-up urgency & recency + relationship status)
   http.get('*/api/dashboard/priority-contacts', async ({ request }) => {
     await delay(160);
     const url = new URL(request.url);
     const accounts = filterAccounts(url);
     const contacts = filterContacts(accounts, url);
 
-    // Tier 1, relationship HOT or WARM, not closed
+    const allFollowUps = getEnrichedFollowUps();
+
+    // Map each contact to their most urgent scheduled follow-up
+    const followUpByContact = new Map<string, FollowUpDTO>();
+    allFollowUps.forEach((f) => {
+      const existing = followUpByContact.get(f.contact_id);
+      if (!existing) {
+        followUpByContact.set(f.contact_id, f);
+      } else {
+        const rank = (cat: string) => (cat === 'OVERDUE' ? 3 : cat === 'TODAY' ? 2 : 1);
+        if (rank(f.status_category) > rank(existing.status_category)) {
+          followUpByContact.set(f.contact_id, f);
+        } else if (
+          rank(f.status_category) === rank(existing.status_category) &&
+          f.due_date < existing.due_date
+        ) {
+          followUpByContact.set(f.contact_id, f);
+        }
+      }
+    });
+
+    const getPriorityScore = (c: Contact) => {
+      const f = followUpByContact.get(c.id);
+      // Follow-up urgency: overdue actions require immediate executive intervention
+      let urgencyScore: number;
+      if (f) {
+        if (f.status_category === 'OVERDUE') {
+          urgencyScore = 1000;
+        } else if (f.status_category === 'TODAY') {
+          urgencyScore = 800;
+        } else {
+          urgencyScore = 600;
+        }
+      } else {
+        urgencyScore = 200;
+      }
+
+      // Relationship status weighting (HOT, WARM, and COLD are all eligible)
+      let statusScore = 0;
+      if (c.relationship_status === 'HOT') statusScore = 30;
+      else if (c.relationship_status === 'WARM') statusScore = 20;
+      else if (c.relationship_status === 'COLD') statusScore = 10;
+
+      return urgencyScore + statusScore;
+    };
+
+    // Tier 1 leads, not closed (inclusive of HOT, WARM, COLD)
     const sorted = [...contacts]
-      .filter(
-        (c) =>
-          !c.is_closed &&
-          c.tier === 'TIER_1' &&
-          (c.relationship_status === 'HOT' || c.relationship_status === 'WARM')
-      )
+      .filter((c) => !c.is_closed && c.tier === 'TIER_1')
       .sort((a, b) => {
-        if (a.relationship_status === 'HOT' && b.relationship_status !== 'HOT') return -1;
-        if (b.relationship_status === 'HOT' && a.relationship_status !== 'HOT') return 1;
+        const scoreA = getPriorityScore(a);
+        const scoreB = getPriorityScore(b);
+        if (scoreB !== scoreA) {
+          return scoreB - scoreA;
+        }
+
+        // Secondary tiebreaker: earlier follow-up due date first
+        const fA = followUpByContact.get(a.id);
+        const fB = followUpByContact.get(b.id);
+        if (fA && fB && fA.due_date !== fB.due_date) {
+          return fA.due_date.localeCompare(fB.due_date);
+        }
+
         return a.name.localeCompare(b.name);
       })
       .slice(0, 8);

@@ -5,9 +5,9 @@ import { WidgetContainer } from '../../../components/common/WidgetContainer';
 import { useDashboardCharts } from '../hooks/useDashboardCharts';
 
 const STATUS_COLORS: Record<string, string> = {
-  HOT: 'var(--warning)',
-  WARM: 'var(--accent)',
-  COLD: 'var(--primary)',
+  HOT: 'var(--chart-temp-hot)',
+  WARM: 'var(--chart-temp-warm)',
+  COLD: 'var(--chart-temp-cold)',
 };
 
 interface TooltipPayloadItem {
@@ -28,10 +28,10 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
   if (active && payload && payload.length > 0) {
     const item = payload[0];
     return (
-      <div className="rounded-lg border border-[var(--background)] bg-[var(--surface)] p-2.5 text-xs shadow-md">
+      <div className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2.5 text-xs shadow-md">
         <p className="font-semibold text-[var(--text)]">{item.payload.status} Contacts</p>
-        <p className="mt-1 text-[var(--text)] opacity-80">
-          Count: <span className="font-bold">{item.value.toLocaleString()}</span>
+        <p className="mt-1 text-[var(--text-secondary)]">
+          Count: <span className="font-bold text-[var(--text)]">{item.value.toLocaleString()}</span>
         </p>
       </div>
     );
@@ -51,8 +51,8 @@ export const RelationshipChart: React.FC = () => {
       title="Relationship Temperature"
       subtitle="Contact engagement tier breakdown"
       headerAction={
-        <div className="flex items-center gap-1.5 text-xs text-[var(--text)] opacity-60">
-          <Flame className="h-3.5 w-3.5 text-[var(--warning)]" />
+        <div className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)]">
+          <Flame className="h-3.5 w-3.5 text-[var(--status-warning-text)]" />
           <span>{total} Total</span>
         </div>
       }
@@ -83,7 +83,7 @@ export const RelationshipChart: React.FC = () => {
                 {chartData.map((entry) => (
                   <Cell
                     key={entry.status}
-                    fill={STATUS_COLORS[entry.status] || 'var(--primary)'}
+                    fill={STATUS_COLORS[entry.status] || 'var(--chart-temp-cold)'}
                   />
                 ))}
               </Pie>
@@ -93,7 +93,7 @@ export const RelationshipChart: React.FC = () => {
         </div>
 
         {/* Legend */}
-        <div className="flex w-full items-center justify-around border-t border-[var(--background)] pt-3 pb-1 text-xs">
+        <div className="flex w-full items-center justify-around border-t border-[var(--border)] pt-3 pb-1 text-xs">
           {chartData.map((entry) => {
             const pct = total > 0 ? Math.round((entry.count / total) * 100) : 0;
             return (
@@ -101,11 +101,11 @@ export const RelationshipChart: React.FC = () => {
                 <div className="flex items-center gap-1.5 font-medium text-[var(--text)]">
                   <span
                     className="h-2.5 w-2.5 rounded-full"
-                    style={{ backgroundColor: STATUS_COLORS[entry.status] || 'var(--primary)' }}
+                    style={{ backgroundColor: STATUS_COLORS[entry.status] || 'var(--chart-temp-cold)' }}
                   />
                   <span>{entry.status}</span>
                 </div>
-                <div className="mt-0.5 text-[11px] text-[var(--text)] opacity-70">
+                <div className="mt-0.5 text-[11px] text-[var(--text-secondary)]">
                   <span className="font-semibold text-[var(--text)]">{entry.count}</span> ({pct}%)
                 </div>
               </div>

@@ -33,7 +33,7 @@ export const DashboardFilters: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="rounded-xl border border-[var(--background)] bg-[var(--surface)] p-4 shadow-sm">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-xs">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           <Skeleton className="h-9 w-full rounded-lg" />
           <Skeleton className="h-9 w-full rounded-lg" />
@@ -47,7 +47,7 @@ export const DashboardFilters: React.FC = () => {
 
   if (isError) {
     return (
-      <div className="flex items-center justify-between rounded-xl border border-[var(--warning)] bg-[var(--warning-bg)] p-3.5 text-xs text-[var(--warning)] shadow-sm">
+      <div className="flex items-center justify-between rounded-xl border border-[var(--status-overdue-text)]/30 bg-[var(--status-overdue-bg)] p-3.5 text-xs text-[var(--status-overdue-text)] shadow-xs">
         <div className="flex items-center gap-2">
           <AlertCircle className="h-4 w-4 shrink-0" />
           <span>
@@ -57,7 +57,7 @@ export const DashboardFilters: React.FC = () => {
         <button
           type="button"
           onClick={() => refetch()}
-          className="inline-flex items-center gap-1 rounded-md bg-[var(--surface)] px-2.5 py-1 text-xs font-semibold text-[var(--warning)] shadow-xs hover:opacity-90 cursor-pointer"
+          className="inline-flex items-center gap-1 rounded-md bg-[var(--btn-primary)] px-2.5 py-1 text-xs font-semibold text-[var(--btn-primary-text)] shadow-xs hover:bg-[var(--btn-primary-hover)] cursor-pointer"
         >
           <RotateCcw className="h-3 w-3" />
           Retry
@@ -67,18 +67,18 @@ export const DashboardFilters: React.FC = () => {
   }
 
   return (
-    <div className="rounded-xl border border-[var(--background)] bg-[var(--surface)] p-4 shadow-sm">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-xs">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         {/* Filter Title & Active Indicator */}
         <div className="flex items-center gap-2 shrink-0">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--background)] text-[var(--primary)]">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--tag-bg)] text-[var(--tag-text)]">
             <Filter className="h-3.5 w-3.5" />
           </div>
           <span className="text-xs font-semibold tracking-wide uppercase text-[var(--text)]">
             Filters
           </span>
           {activeCount > 0 && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-[var(--primary)] px-2 py-0.5 text-[10px] font-bold text-[var(--surface)]">
+            <span className="inline-flex items-center gap-1 rounded-full bg-[var(--btn-primary)] px-2 py-0.5 text-[10px] font-bold text-[var(--btn-primary-text)]">
               <Check className="h-2.5 w-2.5" />
               {activeCount} active
             </span>
@@ -96,7 +96,7 @@ export const DashboardFilters: React.FC = () => {
               id="filter-owner"
               value={filters.ownerId || 'ALL'}
               onChange={(e) => setFilter('ownerId', e.target.value)}
-              className="w-full appearance-none rounded-lg border border-[var(--background)] bg-[var(--surface)] py-2 pr-8 pl-3 text-xs font-medium text-[var(--text)] shadow-xs transition hover:border-[var(--accent)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] cursor-pointer"
+              className="w-full appearance-none rounded-lg border border-[var(--border)] bg-[var(--surface)] py-2 pr-8 pl-3 text-xs font-medium text-[var(--text)] shadow-xs transition hover:border-[var(--btn-primary)] focus:border-[var(--btn-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--btn-primary)] cursor-pointer"
             >
               <option value="ALL">All Owners</option>
               {data?.owners.map((owner) => (
@@ -105,7 +105,7 @@ export const DashboardFilters: React.FC = () => {
                 </option>
               ))}
             </select>
-            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--text)] opacity-40" />
+            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--text-secondary)] opacity-70" />
           </div>
 
           {/* Tier Filter */}
@@ -117,7 +117,7 @@ export const DashboardFilters: React.FC = () => {
               id="filter-tier"
               value={filters.tier || 'ALL'}
               onChange={(e) => setFilter('tier', e.target.value)}
-              className="w-full appearance-none rounded-lg border border-[var(--background)] bg-[var(--surface)] py-2 pr-8 pl-3 text-xs font-medium text-[var(--text)] shadow-xs transition hover:border-[var(--accent)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] cursor-pointer"
+              className="w-full appearance-none rounded-lg border border-[var(--border)] bg-[var(--surface)] py-2 pr-8 pl-3 text-xs font-medium text-[var(--text)] shadow-xs transition hover:border-[var(--btn-primary)] focus:border-[var(--btn-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--btn-primary)] cursor-pointer"
             >
               <option value="ALL">All Tiers</option>
               {data?.tiers.map((tier) => (
@@ -126,7 +126,7 @@ export const DashboardFilters: React.FC = () => {
                 </option>
               ))}
             </select>
-            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--text)] opacity-40" />
+            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--text-secondary)] opacity-70" />
           </div>
 
           {/* Deal Side Filter */}
@@ -138,7 +138,7 @@ export const DashboardFilters: React.FC = () => {
               id="filter-dealside"
               value={filters.dealSide || 'ALL'}
               onChange={(e) => setFilter('dealSide', e.target.value)}
-              className="w-full appearance-none rounded-lg border border-[var(--background)] bg-[var(--surface)] py-2 pr-8 pl-3 text-xs font-medium text-[var(--text)] shadow-xs transition hover:border-[var(--accent)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] cursor-pointer"
+              className="w-full appearance-none rounded-lg border border-[var(--border)] bg-[var(--surface)] py-2 pr-8 pl-3 text-xs font-medium text-[var(--text)] shadow-xs transition hover:border-[var(--btn-primary)] focus:border-[var(--btn-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--btn-primary)] cursor-pointer"
             >
               <option value="ALL">All Deal Sides</option>
               {data?.dealSides.map((side) => (
@@ -147,7 +147,7 @@ export const DashboardFilters: React.FC = () => {
                 </option>
               ))}
             </select>
-            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--text)] opacity-40" />
+            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--text-secondary)] opacity-70" />
           </div>
 
           {/* Country Filter */}
@@ -159,7 +159,7 @@ export const DashboardFilters: React.FC = () => {
               id="filter-country"
               value={filters.country || 'ALL'}
               onChange={(e) => setFilter('country', e.target.value)}
-              className="w-full appearance-none rounded-lg border border-[var(--background)] bg-[var(--surface)] py-2 pr-8 pl-3 text-xs font-medium text-[var(--text)] shadow-xs transition hover:border-[var(--accent)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] cursor-pointer"
+              className="w-full appearance-none rounded-lg border border-[var(--border)] bg-[var(--surface)] py-2 pr-8 pl-3 text-xs font-medium text-[var(--text)] shadow-xs transition hover:border-[var(--btn-primary)] focus:border-[var(--btn-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--btn-primary)] cursor-pointer"
             >
               <option value="ALL">All Countries</option>
               {data?.countries.map((country) => (
@@ -168,16 +168,16 @@ export const DashboardFilters: React.FC = () => {
                 </option>
               ))}
             </select>
-            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--text)] opacity-40" />
+            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--text-secondary)] opacity-70" />
           </div>
         </div>
 
-        {/* Clear Filters Button */}
+        {/* Clear Filters Button (Secondary button: white, border #E2E8F0, ink text) */}
         {activeCount > 0 ? (
           <button
             type="button"
             onClick={resetFilters}
-            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[var(--warning)] bg-[var(--warning-bg)] px-3 py-2 text-xs font-semibold text-[var(--warning)] shadow-xs transition hover:opacity-90 cursor-pointer shrink-0"
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[var(--btn-secondary-border)] bg-[var(--btn-secondary-bg)] px-3 py-2 text-xs font-semibold text-[var(--btn-secondary-text)] shadow-xs transition hover:bg-[var(--background)] cursor-pointer shrink-0"
           >
             <RotateCcw className="h-3 w-3" />
             <span>Clear filters ({activeCount})</span>
@@ -186,7 +186,7 @@ export const DashboardFilters: React.FC = () => {
           <button
             type="button"
             disabled
-            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-transparent px-3 py-2 text-xs font-medium text-[var(--text)] opacity-40 cursor-not-allowed shrink-0"
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[var(--btn-secondary-border)]/50 bg-[var(--btn-secondary-bg)] px-3 py-2 text-xs font-medium text-[var(--text-secondary)] opacity-40 cursor-not-allowed shrink-0"
           >
             <RotateCcw className="h-3 w-3" />
             <span>No active filters</span>

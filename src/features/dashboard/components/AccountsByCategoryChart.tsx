@@ -6,10 +6,17 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  Cell,
 } from 'recharts';
 import { Layers } from 'lucide-react';
 import { WidgetContainer } from '../../../components/common/WidgetContainer';
 import { useAccountsByCategory } from '../hooks/useAccountsByCategory';
+
+const BUSINESS_LINE_COLORS: Record<string, string> = {
+  'Healthcare': 'var(--business-healthcare)',
+  'Financial Advisory': 'var(--business-financial)',
+  'Networking & Partnerships': 'var(--business-networking)',
+};
 
 interface TooltipPayloadItem {
   name: string;
@@ -29,10 +36,10 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
   if (active && payload && payload.length > 0) {
     const item = payload[0];
     return (
-      <div className="rounded-lg border border-[var(--background)] bg-[var(--surface)] p-2.5 text-xs shadow-md">
+      <div className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2.5 text-xs shadow-md">
         <p className="font-semibold text-[var(--text)]">{item.payload.category}</p>
-        <p className="mt-1 text-[var(--text)] opacity-80">
-          Accounts: <span className="font-bold">{item.value.toLocaleString()}</span>
+        <p className="mt-1 text-[var(--text-secondary)]">
+          Accounts: <span className="font-bold text-[var(--text)]">{item.value.toLocaleString()}</span>
         </p>
       </div>
     );
@@ -51,8 +58,8 @@ export const AccountsByCategoryChart: React.FC = () => {
       title="Accounts by Category"
       subtitle="Portfolio volume across consulting practice lines"
       headerAction={
-        <div className="flex items-center gap-1.5 text-xs text-[var(--text)] opacity-60">
-          <Layers className="h-3.5 w-3.5 text-[var(--accent)]" />
+        <div className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)]">
+          <Layers className="h-3.5 w-3.5 text-[var(--link)]" />
           <span>{total} Accounts</span>
         </div>
       }
@@ -74,24 +81,30 @@ export const AccountsByCategoryChart: React.FC = () => {
             >
               <XAxis
                 type="number"
-                tick={{ fill: 'var(--text)', fontSize: 11 }}
-                stroke="var(--background)"
+                tick={{ fill: 'var(--text-secondary)', fontSize: 11 }}
+                stroke="var(--border)"
                 allowDecimals={false}
               />
               <YAxis
                 type="category"
                 dataKey="category"
                 tick={{ fill: 'var(--text)', fontSize: 11 }}
-                stroke="var(--background)"
-                width={120}
+                stroke="var(--border)"
+                width={150}
               />
               <Tooltip content={<CustomTooltip />} />
               <Bar
                 dataKey="count"
-                fill="var(--primary)"
                 radius={[0, 6, 6, 0]}
                 barSize={20}
-              />
+              >
+                {data?.map((entry) => (
+                  <Cell
+                    key={entry.category}
+                    fill={BUSINESS_LINE_COLORS[entry.category] || 'var(--business-financial)'}
+                  />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>

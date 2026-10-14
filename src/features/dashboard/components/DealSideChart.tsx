@@ -5,8 +5,8 @@ import { WidgetContainer } from '../../../components/common/WidgetContainer';
 import { useDashboardCharts } from '../hooks/useDashboardCharts';
 
 const DEAL_SIDE_COLORS: Record<string, string> = {
-  'Buy-Side': 'var(--primary)',
-  'Sell-Side': 'var(--accent)',
+  'Buy-Side': 'var(--chart-dealside-buy)',
+  'Sell-Side': 'var(--chart-dealside-sell)',
 };
 
 interface TooltipPayloadItem {
@@ -27,10 +27,10 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
   if (active && payload && payload.length > 0) {
     const item = payload[0];
     return (
-      <div className="rounded-lg border border-[var(--background)] bg-[var(--surface)] p-2.5 text-xs shadow-md">
+      <div className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2.5 text-xs shadow-md">
         <p className="font-semibold text-[var(--text)]">{item.payload.dealSide}</p>
-        <p className="mt-1 text-[var(--text)] opacity-80">
-          Accounts: <span className="font-bold">{item.value.toLocaleString()}</span>
+        <p className="mt-1 text-[var(--text-secondary)]">
+          Accounts: <span className="font-bold text-[var(--text)]">{item.value.toLocaleString()}</span>
         </p>
       </div>
     );
@@ -50,8 +50,8 @@ export const DealSideChart: React.FC = () => {
       title="Buy-Side vs Sell-Side"
       subtitle="Deal side engagement distribution"
       headerAction={
-        <div className="flex items-center gap-1.5 text-xs text-[var(--text)] opacity-60">
-          <ArrowLeftRight className="h-3.5 w-3.5 text-[var(--accent)]" />
+        <div className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)]">
+          <ArrowLeftRight className="h-3.5 w-3.5 text-[var(--link)]" />
           <span>{total} Accounts</span>
         </div>
       }
@@ -82,7 +82,7 @@ export const DealSideChart: React.FC = () => {
                 {chartData.map((entry) => (
                   <Cell
                     key={entry.dealSide}
-                    fill={DEAL_SIDE_COLORS[entry.dealSide] || 'var(--primary)'}
+                    fill={DEAL_SIDE_COLORS[entry.dealSide] || 'var(--chart-dealside-buy)'}
                   />
                 ))}
               </Pie>
@@ -92,7 +92,7 @@ export const DealSideChart: React.FC = () => {
         </div>
 
         {/* Legend */}
-        <div className="flex w-full items-center justify-around border-t border-[var(--background)] pt-3 pb-1 text-xs">
+        <div className="flex w-full items-center justify-around border-t border-[var(--border)] pt-3 pb-1 text-xs">
           {chartData.map((entry) => {
             const pct = total > 0 ? Math.round((entry.count / total) * 100) : 0;
             return (
@@ -100,11 +100,11 @@ export const DealSideChart: React.FC = () => {
                 <div className="flex items-center gap-1.5 font-medium text-[var(--text)]">
                   <span
                     className="h-2.5 w-2.5 rounded-full"
-                    style={{ backgroundColor: DEAL_SIDE_COLORS[entry.dealSide] || 'var(--primary)' }}
+                    style={{ backgroundColor: DEAL_SIDE_COLORS[entry.dealSide] || 'var(--chart-dealside-buy)' }}
                   />
                   <span>{entry.dealSide}</span>
                 </div>
-                <div className="mt-0.5 text-[11px] text-[var(--text)] opacity-70">
+                <div className="mt-0.5 text-[11px] text-[var(--text-secondary)]">
                   <span className="font-semibold text-[var(--text)]">{entry.count}</span> ({pct}%)
                 </div>
               </div>

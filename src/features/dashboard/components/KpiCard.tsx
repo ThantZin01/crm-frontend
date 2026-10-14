@@ -6,6 +6,7 @@ interface KpiCardProps {
   value?: number | string;
   icon: React.ComponentType<{ className?: string }>;
   isWarning?: boolean;
+  isOverdue?: boolean;
   isLoading?: boolean;
   helperText?: string;
 }
@@ -15,12 +16,15 @@ export const KpiCard: React.FC<KpiCardProps> = ({
   value,
   icon: Icon,
   isWarning = false,
+  isOverdue = false,
   isLoading = false,
   helperText,
 }) => {
+  const isRed = isOverdue;
+
   if (isLoading) {
     return (
-      <div className="flex flex-col justify-between rounded-xl bg-[var(--surface)] p-5 shadow-sm border border-[var(--background)]">
+      <div className="flex flex-col justify-between rounded-xl bg-[var(--surface)] p-5 shadow-xs border border-[var(--border)]">
         <div className="flex items-center justify-between">
           <Skeleton className="h-4 w-24" />
           <Skeleton className="h-9 w-9 rounded-lg" />
@@ -35,25 +39,33 @@ export const KpiCard: React.FC<KpiCardProps> = ({
 
   return (
     <div
-      className={`relative flex flex-col justify-between rounded-xl p-5 shadow-sm transition-all duration-150 ${
-        isWarning
-          ? 'border border-[var(--warning)] bg-[var(--warning-bg)] text-[var(--warning)]'
-          : 'border border-[var(--background)] bg-[var(--surface)] text-[var(--text)]'
+      className={`relative flex flex-col justify-between rounded-xl p-5 shadow-xs transition-all duration-150 ${
+        isRed
+          ? 'border border-[var(--status-overdue-text)]/30 bg-[var(--status-overdue-bg)] text-[var(--status-overdue-text)]'
+          : isWarning
+          ? 'border border-[var(--status-warning-text)]/30 bg-[var(--status-warning-bg)] text-[var(--status-warning-text)]'
+          : 'border border-[var(--border)] bg-[var(--surface)] text-[var(--text)]'
       }`}
     >
       <div className="flex items-center justify-between">
         <span
           className={`text-xs font-semibold tracking-wider uppercase ${
-            isWarning ? 'text-[var(--warning)] opacity-90' : 'text-[var(--text)] opacity-70'
+            isRed
+              ? 'text-[var(--status-overdue-text)] opacity-90'
+              : isWarning
+              ? 'text-[var(--status-warning-text)] opacity-90'
+              : 'text-[var(--text-secondary)]'
           }`}
         >
           {label}
         </span>
         <div
           className={`flex h-9 w-9 items-center justify-center rounded-lg ${
-            isWarning
-              ? 'bg-[var(--surface)] text-[var(--warning)] shadow-xs'
-              : 'bg-[var(--background)] text-[var(--primary)]'
+            isRed
+              ? 'bg-[var(--surface)] text-[var(--status-overdue-text)] shadow-xs'
+              : isWarning
+              ? 'bg-[var(--surface)] text-[var(--status-warning-text)] shadow-xs'
+              : 'bg-[var(--tag-bg)] text-[var(--tag-text)]'
           }`}
         >
           <Icon className="h-4 w-4" />
@@ -63,7 +75,11 @@ export const KpiCard: React.FC<KpiCardProps> = ({
       <div className="mt-4">
         <div
           className={`text-3xl font-extrabold tracking-tight ${
-            isWarning ? 'text-[var(--warning)]' : 'text-[var(--text)]'
+            isRed
+              ? 'text-[var(--status-overdue-text)]'
+              : isWarning
+              ? 'text-[var(--status-warning-text)]'
+              : 'text-[var(--text)]'
           }`}
         >
           {typeof value === 'number' ? value.toLocaleString() : value ?? '0'}
@@ -71,7 +87,11 @@ export const KpiCard: React.FC<KpiCardProps> = ({
         {helperText && (
           <p
             className={`mt-1 text-xs ${
-              isWarning ? 'text-[var(--warning)] opacity-90' : 'text-[var(--text)] opacity-60'
+              isRed
+                ? 'text-[var(--status-overdue-text)] opacity-90'
+                : isWarning
+                ? 'text-[var(--status-warning-text)] opacity-90'
+                : 'text-[var(--text-secondary)]'
             }`}
           >
             {helperText}

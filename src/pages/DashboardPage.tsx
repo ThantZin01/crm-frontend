@@ -25,14 +25,14 @@ export const DashboardPage: React.FC = () => {
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--text)]">
             Executive Dashboard
           </h1>
-          <p className="mt-0.5 text-xs sm:text-sm text-[var(--text)] opacity-70">
-            High-level CRM metrics, outreach velocity, and immediate action items
+          <p className="mt-0.5 text-xs sm:text-sm text-[var(--text-secondary)]">
+            High-level SAGASIA Strategic metrics, outreach velocity, and immediate action items
           </p>
         </div>
 
         {/* Status / Active Business Line Indicator */}
         <div className="flex items-center gap-2 self-start sm:self-auto">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-[var(--background)] bg-[var(--surface)] px-3 py-1 text-xs font-semibold text-[var(--accent)] shadow-xs">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs font-semibold text-[var(--link)] shadow-xs">
             <Activity className="h-3.5 w-3.5" />
             <span>Scope: {filters.businessLine || 'All lines'}</span>
           </div>
@@ -58,10 +58,10 @@ export const DashboardPage: React.FC = () => {
         <DealSideChart />
       </div>
 
-      {/* 5. Tables: Top Priority Contacts & Recently Updated Accounts */}
+      {/* 5. Tables: Recently Updated Accounts on LEFT, Top Priority Contacts on RIGHT on desktop; Top Priority Contacts first on mobile */}
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <PriorityContactsTable />
-        <RecentAccountsTable />
+        <RecentAccountsTable className="order-2 xl:order-1" />
+        <PriorityContactsTable className="order-1 xl:order-2" />
       </div>
 
       {/* 6. Extra Widgets: Practice Line Breakdown & Owner Portfolio / Overdue Workload */}

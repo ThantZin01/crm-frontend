@@ -14,7 +14,7 @@ All dashboard endpoints accept optional filtering query parameters:
 
 | Parameter | Type | Example | Description |
 | :--- | :--- | :--- | :--- |
-| `businessLine` | `string` | `Private Equity` | Filter by account category/line. Omitted or `"All lines"` indicates all. |
+| `businessLine` | `string` | `Healthcare` | Filter by account category/line. Omitted or `"All lines"` indicates all. |
 | `ownerId` | `string` | `usr-1` | Filter by user ID of account or follow-up owner. |
 | `tier` | `string` | `TIER_1` | Tier filter (`TIER_1`, `TIER_2`, `TIER_3`). |
 | `dealSide` | `string` | `BUY_SIDE` | Deal orientation (`BUY_SIDE`, `SELL_SIDE`). |
@@ -189,7 +189,7 @@ All dashboard endpoints accept optional filtering query parameters:
     "deal_side": "BUY_SIDE",
     "owner_id": "usr-1",
     "owner_name": "Sarah Jenkins",
-    "category": "Private Equity",
+    "category": "Healthcare",
     "updated_at": "2026-10-12T14:30:00Z"
   }
 ]
@@ -206,10 +206,9 @@ All dashboard endpoints accept optional filtering query parameters:
 {
   "businessLines": [
     "All lines",
-    "Private Equity",
-    "M&A Advisory",
-    "Corporate Strategy",
-    "Capital Markets"
+    "Healthcare",
+    "Financial Advisory",
+    "Networking & Partnerships"
   ],
   "owners": [
     { "id": "usr-1", "name": "Sarah Jenkins" },
@@ -265,10 +264,9 @@ All dashboard endpoints accept optional filtering query parameters:
 - **Response JSON (200 OK)**:
 ```json
 [
-  { "category": "Private Equity", "count": 34 },
-  { "category": "M&A Advisory", "count": 33 },
-  { "category": "Corporate Strategy", "count": 34 },
-  { "category": "Capital Markets", "count": 33 }
+  { "category": "Healthcare", "count": 45 },
+  { "category": "Financial Advisory", "count": 45 },
+  { "category": "Networking & Partnerships", "count": 44 }
 ]
 ```
 

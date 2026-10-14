@@ -1,2 +1,3 @@
-export const APP_NAME = 'CRM';
-export const APP_TAGLINE = 'Executive CRM';
+export const APP_NAME = 'SAGASIA Strategic';
+export const APP_TAGLINE = 'Strategic Advisory';
+

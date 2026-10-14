@@ -43,28 +43,28 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') onClose();
           }}
-          className="fixed inset-0 z-40 bg-[var(--primary-dark)] opacity-50 md:hidden"
+          className="fixed inset-0 z-40 bg-[var(--sidebar)] opacity-50 md:hidden"
         />
       )}
 
       {/* Sidebar container */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-40 flex w-64 h-screen flex-col bg-[var(--primary-dark)] text-[var(--surface)] transition-transform duration-200 ease-in-out ${
+        className={`fixed top-0 bottom-0 left-0 z-40 flex w-64 h-screen flex-col bg-[var(--sidebar)] text-[var(--sidebar-text)] transition-transform duration-200 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } md:translate-x-0`}
       >
         {/* Brand header */}
-        <div className="flex h-16 items-center justify-between border-b border-[var(--surface)]/10 px-6">
+        <div className="flex h-16 items-center justify-between border-b border-white/10 px-6">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--primary)] text-[var(--surface)] shadow">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 text-[var(--sidebar-selected)] shadow-xs">
               <BriefcaseBusiness className="h-5 w-5" />
             </div>
             <div>
-              <div className="flex items-center gap-1.5 font-bold tracking-tight text-[var(--surface)]">
+              <div className="flex items-center gap-1.5 font-bold tracking-tight text-[var(--sidebar-text)]">
                 <span>{APP_NAME}</span>
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--sidebar-selected)]" />
               </div>
-              <p className="text-[10px] tracking-widest text-[var(--surface)] opacity-60 uppercase">
+              <p className="text-[10px] tracking-widest text-[var(--sidebar-text)] opacity-60 uppercase">
                 {APP_TAGLINE}
               </p>
             </div>
@@ -73,7 +73,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           <button
             type="button"
             onClick={onClose}
-            className="rounded p-1 text-[var(--surface)] opacity-70 hover:opacity-100 md:hidden"
+            className="rounded p-1 text-[var(--sidebar-text)] opacity-70 hover:opacity-100 md:hidden"
             aria-label="Close menu"
           >
             <X className="h-5 w-5" />
@@ -94,25 +94,29 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                   }
                 }}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-lg px-3.5 py-2.5 text-sm font-medium transition-colors ${
+                  `flex items-center gap-3 px-3.5 py-2.5 text-sm font-medium transition-colors border-l-4 rounded-r-md ${
                     isActive
-                      ? 'bg-[var(--primary)] text-[var(--surface)] shadow-sm'
-                      : 'text-[var(--surface)] opacity-75 hover:bg-[var(--surface)]/10 hover:opacity-100'
+                      ? 'border-[var(--sidebar-selected)] bg-white/5 text-[var(--sidebar-text)] font-semibold'
+                      : 'border-transparent text-[var(--sidebar-text)] opacity-75 hover:bg-white/5 hover:opacity-100'
                   }`
                 }
               >
-                <Icon className="h-4 w-4 shrink-0" />
-                <span>{item.name}</span>
+                {({ isActive }) => (
+                  <>
+                    <Icon className={`h-4 w-4 shrink-0 ${isActive ? 'text-[var(--sidebar-selected)]' : 'text-current'}`} />
+                    <span>{item.name}</span>
+                  </>
+                )}
               </NavLink>
             );
           })}
         </nav>
 
         {/* Footer info in sidebar */}
-        <div className="border-t border-[var(--surface)]/10 p-4">
-          <div className="rounded-lg bg-[var(--surface)]/5 p-3 text-xs">
-            <p className="font-semibold text-[var(--surface)]">Consulting Portal</p>
-            <p className="mt-0.5 text-[var(--surface)] opacity-60">Spring REST &bull; v1.0</p>
+        <div className="border-t border-white/10 p-4">
+          <div className="rounded-lg bg-white/5 p-3 text-xs">
+            <p className="font-semibold text-[var(--sidebar-text)]">SAGASIA Advisory Portal</p>
+            <p className="mt-0.5 text-[var(--sidebar-text)] opacity-60">Spring REST &bull; v1.0</p>
           </div>
         </div>
       </aside>
